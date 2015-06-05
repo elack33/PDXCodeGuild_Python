@@ -1,6 +1,6 @@
 __author__ = 'darwright'
 # mad lib game!
-
+#  taken from http://www.wordblanks.com/mad-libs/story/13482
 print "Let's make a mad lib!"
 
 #get user data for variables
