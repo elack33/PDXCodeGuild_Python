@@ -12,10 +12,10 @@ class Room():
         global MONSTERNAME
         global ISMONSTER
         findmonster()
-        self.n_door = dooropen()
-        self.s_door = dooropen()
-        self.e_door = dooropen()
-        self.w_door = dooropen()
+        self.n_door = self.dooropen()
+        self.s_door = self.dooropen()
+        self.e_door = self.dooropen()
+        self.w_door = self.dooropen()
         if self.n_door is False and self.s_door is False and self.e_door is False and self.w_door is False:
             self.n_door = True
             self.doorstatement()
@@ -39,8 +39,6 @@ class Room():
                    'The %s wall is made of old hard cheese.',
                    'The %s wall is a decaying dragon, and no you cant loot him.'
                    ]
-    #list of if there is a door open or not to go with the descriptions
-    dooropen = ['No', 'Yes']
 
     #load the 4 directions
     def north(self):
@@ -116,32 +114,33 @@ class Room():
             DOORCHOICE = "You can go North or West: "
         return ds
 
+    #function to see if the door is open or not for each wall
+    def dooropen(self):
+        if random.randint(1, 101) < 50:
+            do = True
+        else:
+            do = False
+        return do
+
+    #moving through a door statements
+    def doormove(self, dchoice):
+        if dchoice == "north" or dchoice == "n":
+            direction = "North"
+        elif dchoice == "south" or dchoice == "s":
+            direction = "South"
+        elif dchoice == "east" or dchoice == "e":
+            direction = "East"
+        elif dchoice == "west" or dchoice == "w":
+            direction = "West"
+        path = "   You walk through the door in the %s wall.\n\n" % direction
+        return path
+
 #functions
-#function to see if the door is open or not for each wall
-def dooropen():
-    if random.randint(1, 101) < 50:
-        do = True
-    else:
-        do = False
-    return do
 
 #generate some random numbers between 0 and 9
 def rnd09():
     rnd = random.randint(0, 9)
     return rnd
-
-#moving through a door statements
-def doormove(dir):
-    if dir == "north" or dir == "n":
-        direction = "North"
-    elif dir == "south" or dir == "s":
-        direction = "South"
-    elif dir == "east" or dir == "e":
-        direction = "East"
-    elif dir == "west" or dir == "w":
-        direction = "West"
-    path = "   You walk through the door in the %s wall.\n\n" % direction
-    return path
 
 #is there a monster in this room?
 def findmonster():
@@ -166,6 +165,24 @@ def namemonster():
     name = names[rnd]
     return name
 
+def playagain(room):
+        choice = raw_input("Do you want to continue?\nPlease Enter Yes or No: ")
+        choice = str.lower(choice)
+        if choice == "yes" or choice == "y":
+            print room.doorstatement()
+            print DOORCHOICE
+            dchoice = str.lower(raw_input("Which way do you want to go?"))
+            print room.doormove(dchoice)
+            playmore = True
+            return playmore
+        elif choice == "no" or choice == "n":
+            print "Thank you for playing!"
+            playmore = False
+            return playmore
+        else:
+            print "Please enter a valid choice."
+            playagain(room)
+
 #user interface
 def userinterface():
     global MONSTERNAME
@@ -185,17 +202,7 @@ def userinterface():
         #fight() #fight class here
 
         #Continue playing options:
-        choice = raw_input("Do you want to continue?\nPlease Enter Yes or No: ")
-        choice = str.lower(choice)
-        if choice == "yes" or choice == "y":
-            print new.doorstatement()
-            print DOORCHOICE
-            dchoice = str.lower(raw_input("Which way do you want to go?"))
-            print doormove(dchoice)
-            playmore = True
-        elif choice == "no" or choice == "n":
-            print "Thank you for playing!"
-            playmore = False
+        playmore = playagain(new)
 
 
 userinterface()
