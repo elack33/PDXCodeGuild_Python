@@ -220,7 +220,7 @@ def playagain(room):
             playagain(room)
 
 
-#fight function --stephen
+# fight function --stephen
 def fight(p, m):
     while m.hp >= 0 or p.hp >= 0:
 
@@ -248,14 +248,14 @@ def fight(p, m):
 
 # Loot function --Stephen
 def loot(p):
-        ran= random.randint(0, 100)
+        ran = random.randint(0, 100)
         if ran < 50:
             p.a += 1
-            loot = "armor"
+            lot = "armor"
         else:
             p.w += 1
-            loot = "weapon"
-        return loot
+            lot = "weapon"
+        return lot
 
 
 # user interface
@@ -283,7 +283,6 @@ def userinterface():
                 break
             elif HERO.hp <= 0:
                 print "Thank you for playing!"
-                playmore = False
                 break
         else:
             print "You do not see any monsters!"
@@ -293,8 +292,3 @@ def userinterface():
 
 
 userinterface()
-
-
-
-
-
