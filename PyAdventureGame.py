@@ -143,10 +143,9 @@ class Room:
         return path
 
 
-#class that creates heros or monsters --stephen
 class Things():
     def __init__(self, name):
-        self.hp = 90 + random.randint(5, 50)
+        self.hp = 50 + random.randint(5, 50)
         self.name = name
         self.ap = 5 + random.randint(3, 10)
         self.w = 0
@@ -230,19 +229,33 @@ def fight(p, m):
         if choice1 == "1":
             m.hp -= (p.ap + random.randint(-2, 3))
             p.hp -= (m.ap + random.randint(-2, 3))
-            print "your hp is %s" % p.hp
-            print "The monster has %s " % m.hp
+            print "Your hp is %s." % p.hp
+            print "The monster hp is %s." % m.hp
         elif choice1 == "2":
-            print ("Your health is now at %s" % str(p.hp))
-        if m.hp < 0 and p.hp < 0:
+            break
+        if m.hp <= 0 and p.hp <= 0:
             print "You have killed each other!"
             break
         elif m.hp <= 0:
-            print "You have killed the monster"
-            break
+            print "You have killed the monster!"
+            lt = loot(p)
+            print "The monster has left some loot, you pick up the %s!" % lt
+            break        
         elif p.hp <= 0:
-            print "You have died. "
+            print "You have died."
             break
+
+
+# Loot function --Stephen
+def loot(p):
+        ran= random.randint(0, 100)
+        if ran < 50:
+            p.a += 1
+            loot = "armor"
+        else:
+            p.w += 1
+            loot = "weapon"
+        return loot
 
 
 # user interface
