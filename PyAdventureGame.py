@@ -145,7 +145,7 @@ class Room:
 
 class Things():
     def __init__(self, name):
-        self.hp = 50 + random.randint(5, 50)
+        self.hp = 50 + random.randint(5, 30)
         self.name = name
         self.ap = 5 + random.randint(3, 10)
         self.w = 0
@@ -179,7 +179,7 @@ def rnd09():
 # is there a monster in this room?
 def findmonster():
     global ISMONSTER
-    if random.randint(1, 101) < 50:
+    if random.randint(1, 101) < 70:
         ISMONSTER = True
     else:
         ISMONSTER = False
@@ -238,6 +238,9 @@ def fight(p, m):
             break
         elif m.hp <= 0:
             print "You have killed the monster!"
+            rand = random.randint(45, 66)
+            p.hp += rand
+            print "You have healed %s points." % rand
             lt = loot(p)
             print "The monster has left some loot, you pick up the %s!" % lt
             break        
@@ -277,6 +280,7 @@ def userinterface():
         if ISMONSTER is True:
             print "Look out! You see %s in the room!" % MONSTERNAME
             stats(HERO)
+            MONSTER.hp = HERO.hp - (random.randint(1, 4))
             fight(HERO, MONSTER)
             if HERO.hp < 0 and MONSTER.hp < 0:
                 print "Thank you for playing!"
