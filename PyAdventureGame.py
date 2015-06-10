@@ -202,7 +202,7 @@ def namemonster():
 
 
 def playagain(room):
-        choice = raw_input("Do you want to continue?\nPlease Enter Yes or No: ")
+        choice = raw_input("Do you want to continue?\n  Please Enter Yes or No: ")
         choice = str.lower(choice)
         if choice == "yes" or choice == "y":
             print room.doorstatement()
@@ -212,7 +212,7 @@ def playagain(room):
             playmore = True
             return playmore
         elif choice == "no" or choice == "n":
-            print "Thank you for playing!"
+            print "Thank you for playing, the deeds of %s will surely be missed!" % str.capitalize(HERO.name)
             playmore = False
             return playmore
         else:
@@ -224,7 +224,7 @@ def playagain(room):
 def fight(p, m):
     while m.hp >= 0 or p.hp >= 0:
 
-        choice1 = raw_input("Enter 1 to attack the monster.\n Enter 2 to run away. \n> ")
+        choice1 = raw_input("\nEnter 1 to attack the monster.\n Enter 2 to run away. \n> ")
 
         if choice1 == "1":
             m.hp -= (p.ap + random.randint(-2, 3))
@@ -235,14 +235,15 @@ def fight(p, m):
             break
         if m.hp <= 0 and p.hp <= 0:
             print "You have killed each other!"
+            print "Thank you for playing, the deeds of %s will surely be missed!" % str.capitalize(HERO.name)
             break
         elif m.hp <= 0:
-            print "You have killed the monster!"
+            print "\nYou have killed the monster!"
             rand = random.randint(45, 66)
             p.hp += rand
-            print "You have healed %s points." % rand
+            print "  You have healed %s points." % rand
             lt = loot(p)
-            print "The monster has left some loot, you pick up the %s!" % lt
+            print "  The monster has left some loot, you pick up the %s!" % lt
             break        
         elif p.hp <= 0:
             print "You have died."
