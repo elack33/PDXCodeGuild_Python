@@ -1,3 +1,7 @@
+# Make a text based dungeon style game using classes and functions.
+# First pair programming project.
+
+
 # imports
 import random
 
