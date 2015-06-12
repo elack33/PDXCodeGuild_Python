@@ -21,29 +21,27 @@ def delete():
 
 def search_fname(name):
     name = str.capitalize(name)
+    found = []
     for n in phonebook:
         if name == n["fname"]:
-            return n["id"]
-        else:
-            print "No match found."
-            return 0
+            found.append(n)
+    return found
 
 def search_lname(name):
     name = str.capitalize(name)
+    found = []
     for n in phonebook:
         if name == n["lname"]:
-            return n["id"]
-        else:
-            print "No match found."
-            return 0
+            found.append(n)
+    return found
 
 def search_phone(phone):
+    phone = phone
+    found = []
     for n in phonebook:
         if phone == n["phone"]:
-            return n["id"]
-        else:
-            print "No match found."
-            return 0
+            found.append(n)
+    return found
 
 
 
@@ -54,18 +52,39 @@ def search():
                            "\nPress 3 to search by phone number.\nPress 4 to quit.\n>")
         if choice == '1':
             name = raw_input("Please enter the first name: ")
-            id = search_fname(name)
-                if
+            entries = search_fname(name)
+            if not entries:
+                print "No match found."
+            else:
+                for n in entries:
+                    print n["fname"], n["lname"], n["phone"]
+                    exit()
         elif choice == '2':
-
+            name = raw_input("Please enter the last name: ")
+            entries = search_lname(name)
+            if not entries:
+                print "No match found."
+            else:
+                for n in entries:
+                    print n["fname"], n["lname"], n["phone"]
+                    exit()
+            exit()
         elif choice == '3':
-
+            phone = raw_input("Please enter the phone number in this format XXX-XXX-XXXX: ")
+            entries = search_phone(phone)
+            if not entries:
+                print "No match found."
+            else:
+                for n in entries:
+                    print n["fname"], n["lname"], n["phone"]
+                    exit()
+            exit()
         else:
             exit()
 
 
 while True:
-    choice = raw_input("press 1 to search, 2 to add, 3 to update, 4 to delete.")
+    choice = raw_input("Press 1 to search.\nPress 2 to add.\n3 to update.\n4 to delete.\n>>")
     if choice == '1':
         search()
     elif choice == '2':
@@ -74,6 +93,7 @@ while True:
         change()
     elif choice == '4':
         delete()
-    else
+    else:
         print "Not a valid choice. Please try again."
+
     # The rest of the menu code here
