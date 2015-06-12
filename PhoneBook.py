@@ -22,8 +22,13 @@ def delete():
         choice = str.lower(raw_input("Are you sure you want to delete an entry? Yes or No: "))
         if choice == 'yes' or choice == 'y':
             entry = search()
-
-
+            print entry
+            del_entry = str.lower(raw_input("This is the entry you wish to delete? Yes or No: ?"))
+            if len(entry) > 1:
+                if del_entry == 'yes' or choice == 'y':
+                    del phonebook[entry]
+            else:
+                exit()
         elif choice == 'no' or choice == 'n':
             exit()
         else:
@@ -74,7 +79,7 @@ def search():
                 for n in entries:
                     print n["fname"], n["lname"], n["phone"]
             return entries
-            exit()
+
         elif choice == '2':
             name = raw_input("Please enter the last name: ")
             entries = search_lname(name)
@@ -95,23 +100,26 @@ def search():
                     print n["fname"], n["lname"], n["phone"]
             return entries
             exit()
-        elif: choice == '4':
+        elif choice == '4':
             exit()
         else:
             print "Please enter a valid option.\n"
 
+def phonebook():
+    while True:
+        choice = raw_input("Press 1 to search.\nPress 2 to add.\n3 to update.\n4 to delete.\n5 to quit.\n>>")
+        if choice == '1':
+            search()
+        elif choice == '2':
+            add()
+        elif choice == '3':
+            change()
+        elif choice == '4':
+            delete()
+        elif choice == '5':
+            exit()
+        else:
+            print "Not a valid choice. Please try again.\n\n"
 
-while True:
-    choice = raw_input("Press 1 to search.\nPress 2 to add.\n3 to update.\n4 to delete.\n>>")
-    if choice == '1':
-        search()
-    elif choice == '2':
-        add()
-    elif choice == '3':
-        change()
-    elif choice == '4':
-        delete()
-    else:
-        print "Not a valid choice. Please try again.\n\n"
+phonebook()
 
-    # The rest of the menu code here
