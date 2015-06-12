@@ -7,7 +7,6 @@ phonebook = [
             {"id": 3, "fname" : "Mario", "lname": "Mario", "phone": "555-123-4567"}
         ]
 
-
 def add():
     # Function for adding entries
 
@@ -28,21 +27,15 @@ def delete():
               "Loading Search Menu...\n"
         time.sleep(1)
         entry_list = search()
-        for entry in entry_list:
-            print entry
-            del_entry = str.lower(raw_input("This is the entry you wish to delete? Yes or No: ?"))
-            if del_entry == 'yes' or del_entry == 'y':
-                list.remove(phonebook, entry)
-                print phonebook
-
-            # elif len(entry) > 1:
-            #     print "Sorry, too many entries, please use a different search method to narrow the choice."
-            elif choice == 'no' or choice == 'n':
-                exit()
-            else:
-                print "Please enter a valid option.\n"
-
-    pass
+        if len(entry_list) == 1:
+            for entry in entry_list:
+                del_entry = str.lower(raw_input("This is the entry you wish to delete? Yes or No: ?"))
+                if del_entry == 'yes' or del_entry == 'y':
+                    phonebook.remove(entry)
+                elif choice == 'no' or choice == 'n':
+                    exit()
+        elif len(entry_list) > 1:
+            print "Sorry, too many entries, please use a different search method to narrow the choice.\n"
 
 
 def search_fname(name):
