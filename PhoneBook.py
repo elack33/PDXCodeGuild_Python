@@ -1,6 +1,7 @@
 # Create a dictionary of dictionaries to hold your data.
 phonebook = {"id": 1, "fname" : "Dar", "lname": "Wright", "phone": "XXX-XXX-XXXX"}, \
-            {"id": 2, "fname" : "Luigi", "lname": "Mario", "phone": "505-123-4567"}
+            {"id": 2, "fname" : "Luigi", "lname": "Mario", "phone": "505-123-4567"}, \
+            {"id": 2, "fname" : "Mario", "lname": "Mario", "phone": "555-123-4567"}
 
 
 def add():
@@ -17,7 +18,19 @@ def change():
 
 def delete():
     # Function to delete entries
+    while True:
+        choice = str.lower(raw_input("Are you sure you want to delete an entry? Yes or No: "))
+        if choice == 'yes' or choice == 'y':
+            entry = search()
+
+
+        elif choice == 'no' or choice == 'n':
+            exit()
+        else:
+            print "Please enter a valid option.\n"
+
     pass
+
 
 def search_fname(name):
     name = str.capitalize(name)
@@ -27,6 +40,7 @@ def search_fname(name):
             found.append(n)
     return found
 
+
 def search_lname(name):
     name = str.capitalize(name)
     found = []
@@ -34,6 +48,7 @@ def search_lname(name):
         if name == n["lname"]:
             found.append(n)
     return found
+
 
 def search_phone(phone):
     phone = phone
@@ -58,7 +73,8 @@ def search():
             else:
                 for n in entries:
                     print n["fname"], n["lname"], n["phone"]
-                    exit()
+            return entries
+            exit()
         elif choice == '2':
             name = raw_input("Please enter the last name: ")
             entries = search_lname(name)
@@ -67,7 +83,7 @@ def search():
             else:
                 for n in entries:
                     print n["fname"], n["lname"], n["phone"]
-                    exit()
+            return entries
             exit()
         elif choice == '3':
             phone = raw_input("Please enter the phone number in this format XXX-XXX-XXXX: ")
@@ -77,10 +93,12 @@ def search():
             else:
                 for n in entries:
                     print n["fname"], n["lname"], n["phone"]
-                    exit()
+            return entries
+            exit()
+        elif: choice == '4':
             exit()
         else:
-            exit()
+            print "Please enter a valid option.\n"
 
 
 while True:
@@ -94,6 +112,6 @@ while True:
     elif choice == '4':
         delete()
     else:
-        print "Not a valid choice. Please try again."
+        print "Not a valid choice. Please try again.\n\n"
 
     # The rest of the menu code here
