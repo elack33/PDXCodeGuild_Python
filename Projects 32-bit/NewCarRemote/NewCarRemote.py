@@ -14,11 +14,10 @@ class CarRemote(object):
         state 1 = unlock
         state 2 = open trunk
         state 3 = honk horn
-        :return:
         """
         self.state = 0
         self.carnoise = ''
-        #disable self.ui() for unit tests.
+        # disable self.ui() for unit tests.
         self.ui()
 
     def set_car_lock_on(self):
