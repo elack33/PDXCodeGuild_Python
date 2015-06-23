@@ -18,21 +18,22 @@ class Hangman(object):
         self.word_list = []
 
 
-    def set_random_word(self):
-        # word_site = "http://www.freebsd.org/cgi/cvsweb.cgi/src/share/dict/web2?rev=1.12;content-type=text%2Fplain"
-        # response = urllib2.urlopen(word_site)
-        # txt = response.read()
-        # word_list = txt.splitlines()
+    def set_random_word(self, length=6):
+        """
+        choose a random word from my local dictionary, defaults to 6 characters.
+        """
         word_file = "/usr/share/dict/words"
         word_list = open(word_file).read().splitlines()
-        self.word = random.choice(word_list)
+        narrow_word_choice = [x for x in word_list if len(x) <= length]
+        self.word = random.choice(narrow_word_choice)
+
 
 
     def welcome_message(self):
         print "Welcome to the Hang man game!\n" \
               "You will have 10 chances to guess the word!\n" \
               "Ready?\n" \
-              "Choosing random word!"
+        #TODO UI for word length choice
         self.menu_countdown()
 
 
@@ -55,7 +56,7 @@ class Hangman(object):
 
 
 new = Hangman()
-word = new.set_random_word()
+word = new.set_random_word(8)
 print new.word
 # new.welcome_message()
 new.set_hidden_word_list()
