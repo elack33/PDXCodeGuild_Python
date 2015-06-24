@@ -13,7 +13,7 @@ import time
 class Hangman(object):
     def __init__(self):
         self.word = ''
-        self.counter = 10
+        self.counter = 6
         self.hidden_word_list = []
         self.word_list = []
         self.guessed_letters = []
@@ -30,6 +30,9 @@ class Hangman(object):
         self.word = self.word.lower()
 
     def welcome_message(self):
+        """
+        short little welcome message
+        """
         welcome = "Welcome to the Hang man game!\n" \
                   "You will have 10 chances to guess the word!\n" \
                   "Each ^ is a letter to guess!\n" \
@@ -61,6 +64,11 @@ class Hangman(object):
             self.word_list += '^'
 
     def guess(self, letter):
+        """
+        checks if the letter is in the hiddne word and is so, puts it in the visible list
+        and if the letter is not found, takes one guess away and appeaded the letter to the
+        used letter list
+        """
         for i, x in enumerate(self.hidden_word_list):
             if x == letter:
                 self.word_list[i] = self.hidden_word_list[i]
@@ -70,33 +78,44 @@ class Hangman(object):
             self.guessed_letters.append(letter)
 
     def start_game(self):
+        """
+        starts the game, loads the functions to get it going
+        :return:
+        """
         print self.welcome_message()
         self.set_random_word()
         self.set_hidden_word_list()
         self.play()
 
     def set_guess(self):
-        letter = raw_input("Guess a letter: ")
-        # try:
-        #     int(letter)
-        # except ValueError:
-        #     print "You cannot enter numbers, try again!"
-        # if int(letter) == True:
-        #     print "You cannot enter numbers, try again!"
-        #     self.set_guess()
-        if letter in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '0'):
+        """
+        gets the user's letter guess including some data integrity checks.
+        Also allows the user to quit, or guess the word
+        :return:
+        """
+        letter = raw_input("Enter 'quit' to quit, enter the word guess, or guess a letter: ")
+        letter = letter.lower()
+        if len(letter) > 1:
+            if letter == 'quit':
+                print "Thank you for playing!"
+                exit()
+            elif letter != 'quit' and letter != self.word:
+                print "Wrong guess, try again!"
+                self.set_guess()
+            elif letter == self.word:
+                print "You win!"
+                # TODO make a win function
+            else:
+                print "Please only enter one letter."
+                self.set_guess()
+        elif letter in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '0'):
             print "You cannot enter numbers, try again!"
             self.set_guess()
         elif letter in self.word_list or letter in self.guessed_letters:
             print "You have already guessed that letter, try again!"
             self.set_guess()
-        # elif int(letter) == True:
-        #
-        #     self.set_guess()
         else:
             self.guess(letter)
-        # TODO check self.guessed if the letter already used
-        # TODO check self.word_list to see if the letter already used
 
     def show_word(self):
         guesses = ''.join(self.word_list)
@@ -123,7 +142,9 @@ class Hangman(object):
             print "Oh no! You lost, the word was %s!" % self.word
         # TODO you loose function
 
-
+    def ascii_hangman(self):
+        pass
+        # TODO figure out how to do some ascii art for the hanging man.
 
 
 new = Hangman()
