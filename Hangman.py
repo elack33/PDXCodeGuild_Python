@@ -22,13 +22,19 @@ class Hangman(object):
     def set_random_word(self, length=6):
         """
         choose a random word from my local dictionary, defaults to 6 characters and greater than 2
+        updated with a common word list with around 3k words
         """
-        word_file = "/usr/share/dict/words"
-        word_list = open(word_file).read().splitlines()
-        # TODO chznge ot with later
-        narrow_word_choice = [x for x in word_list if len(x) <= length and len(x) > 2]
+        # word_file = "/usr/share/dict/words"
+        word_file = "/Users/darwright/Python/common_word_list.txt"
+        # word_list = open(word_file).read().splitlines()
+        # TODO change to with later
+        # narrow_word_choice = [x for x in word_list if len(x) <= length and len(x) > 2]
+        with open(word_file, 'r') as word_list:
+            narrow_word_choice = [x for x in word_list if len(x) <= length and len(x) > 2]
         self.word = random.choice(narrow_word_choice)
-        self.word = self.word.lower()
+        self.word = self.word[:-1].lower()
+        if self.word == self.word.capitalize():
+            self.set_random_word()
 
     # TODO look up decorators
     @property
