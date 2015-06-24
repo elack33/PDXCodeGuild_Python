@@ -64,9 +64,6 @@ class Hangman(object):
         for i, x in enumerate(self.hidden_word_list):
             if x == letter:
                 self.word_list[i] = self.hidden_word_list[i]
-            # else:
-            #     self.guessed_letters.append(x)
-            #     self.counter -= 1
                 pass
         if letter not in self.word_list:
             self.counter -= 1
@@ -80,7 +77,24 @@ class Hangman(object):
 
     def set_guess(self):
         letter = raw_input("Guess a letter: ")
-        self.guess(letter)
+        # try:
+        #     int(letter)
+        # except ValueError:
+        #     print "You cannot enter numbers, try again!"
+        # if int(letter) == True:
+        #     print "You cannot enter numbers, try again!"
+        #     self.set_guess()
+        if letter in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '0'):
+            print "You cannot enter numbers, try again!"
+            self.set_guess()
+        elif letter in self.word_list or letter in self.guessed_letters:
+            print "You have already guessed that letter, try again!"
+            self.set_guess()
+        # elif int(letter) == True:
+        #
+        #     self.set_guess()
+        else:
+            self.guess(letter)
         # TODO check self.guessed if the letter already used
         # TODO check self.word_list to see if the letter already used
 
@@ -95,18 +109,18 @@ class Hangman(object):
                 self.show_word()
                 self.set_guess()
                 # self.counter -= 1
-                print self.counter
-                print "Guessed letters: ", ' '.join(self.guessed_letters)
+                if self.counter > 1:
+                    print "You have\033[0;34m %d\033[0m guesses left!" % self.counter
+                elif self.counter == 1:
+                    print "You have \033[0;31mONE\033[0m guess left!"
+                print "Letters used: ", ' '.join(self.guessed_letters)
                 # TODO counter show function
-            # elif self.counter == 0:
-            #     print "You loose!"
-            #     break
-            #     # TODO Make a you loose function
             else:
                 # TODO You win function
                 print "You win!"
                 break
-        print "You loose."
+        if self.counter == 0:
+            print "Oh no! You lost, the word was %s!" % self.word
         # TODO you loose function
 
 
@@ -137,7 +151,3 @@ new = Hangman()
 # test_welcome_message()
 
 
-# self.welcome_message()
-# self.set_random_word()
-# self.set_hidden_word_list()
-# self.start_game()
