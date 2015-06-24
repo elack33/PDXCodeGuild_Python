@@ -24,13 +24,9 @@ class Hangman(object):
         choose a random word from my local dictionary, defaults to 6 characters and greater than 2
         updated with a common word list with around 3k words
         """
-        # word_file = "/usr/share/dict/words"
         word_file = "/Users/darwright/Python/common_word_list.txt"
-        # word_list = open(word_file).read().splitlines()
-        # TODO change to with later
-        # narrow_word_choice = [x for x in word_list if len(x) <= length and len(x) > 2]
         with open(word_file, 'r') as word_list:
-            narrow_word_choice = [x for x in word_list if len(x) <= length and len(x) > 2]
+            narrow_word_choice = [x for x in word_list if len(x) <= length and len(x) >= 3]
         self.word = random.choice(narrow_word_choice)
         self.word = self.word[:-1].lower()
         if self.word == self.word.capitalize():
@@ -74,8 +70,8 @@ class Hangman(object):
 
     def guess(self, letter):
         """
-        checks if the letter is in the hiddne word and is so, puts it in the visible list
-        and if the letter is not found, takes one guess away and appeaded the letter to the
+        checks if the letter is in the hidden word and if so, puts it in the visible list
+        and if the letter is not found, takes one guess away and appends the letter to the
         used letter list
         """
         for i, x in enumerate(self.hidden_word_list):
@@ -113,6 +109,7 @@ class Hangman(object):
                 self.set_guess()
             elif letter == self.word:
                 print "You win!"
+                exit()
                 # TODO make a win function
             else:
                 print "Please only enter one letter."
@@ -127,22 +124,21 @@ class Hangman(object):
             self.guess(letter)
 
     def show_word(self):
+        print self.ascii_hangman()
         guesses = ''.join(self.word_list)
         print guesses
-        print self.word
+        print "This is here for testing only!", self.word
 
     def play(self):
         while self.counter > 0:
             if self.hidden_word_list != self.word_list:
                 self.show_word()
                 self.set_guess()
-                # self.counter -= 1
                 if self.counter > 1:
                     print "You have\033[0;34m %d\033[0m guesses left!" % self.counter
                 elif self.counter == 1:
                     print "You have \033[0;31mONE\033[0m guess left!"
                 print "Letters used: ", ' '.join(self.guessed_letters)
-                # TODO counter show function
             else:
                 # TODO You win function
                 print "You win!"
@@ -152,8 +148,64 @@ class Hangman(object):
         # TODO you loose function
 
     def ascii_hangman(self):
-        pass
-        # TODO figure out how to do some ascii art for the hanging man.
+        if self.counter == 6:
+            hang = "   _____\n" \
+                   "   |   |\n" \
+                   "       |\n" \
+                   "       |\n" \
+                   "       |\n" \
+                   "  _____|\n"
+
+        elif self.counter == 5:
+            hang = "   _____\n" \
+                   "   |   |\n" \
+                   "   O   |\n" \
+                   "       |\n" \
+                   "       |\n" \
+                   "  _____|\n"
+
+        elif self.counter == 4:
+            hang = "   _____\n" \
+                   "   |   |\n" \
+                   "   O   |\n" \
+                   "   |   |\n" \
+                   "       |\n" \
+                   "  _____|\n"
+
+        elif self.counter == 3:
+            hang = "   _____\n" \
+                   "   |   |\n" \
+                   "   O   |\n" \
+                   "  /|   |\n" \
+                   "       |\n" \
+                   "  _____|\n"
+
+        elif self.counter == 2:
+            hang = "   _____\n" \
+                   "   |   |\n" \
+                   "   O   |\n" \
+                   "  /|\  |\n" \
+                   "       |\n" \
+                   "  _____|\n"
+        elif self.counter == 1:
+            hang = "   _____\n" \
+                   "   |   |\n" \
+                   "   O   |\n" \
+                   "  /|\  |\n" \
+                   "  /    |\n" \
+                   "  _____|\n"
+
+        elif self.counter == 0:
+            hang = "   _____\n" \
+                   "   |   |\n" \
+                   "   O   |\n" \
+                   "  /|\  |\n" \
+                   "  / \  |\n" \
+                   "  _____|\n"
+
+        return hang
+
+
 
 
 new = Hangman()
