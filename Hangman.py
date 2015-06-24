@@ -25,10 +25,13 @@ class Hangman(object):
         """
         word_file = "/usr/share/dict/words"
         word_list = open(word_file).read().splitlines()
+        # TODO chznge ot with later
         narrow_word_choice = [x for x in word_list if len(x) <= length and len(x) > 2]
         self.word = random.choice(narrow_word_choice)
         self.word = self.word.lower()
 
+    # TODO look up decorators
+    @property
     def welcome_message(self):
         """
         short little welcome message
@@ -82,7 +85,7 @@ class Hangman(object):
         starts the game, loads the functions to get it going
         :return:
         """
-        print self.welcome_message()
+        print self.welcome_message
         self.set_random_word()
         self.set_hidden_word_list()
         self.play()
