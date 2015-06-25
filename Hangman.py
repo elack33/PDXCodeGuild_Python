@@ -125,6 +125,7 @@ class Hangman(object):
 
     def show_word(self):
         print self.ascii_hangman()
+        print "Your word is: "
         guesses = ''.join(self.word_list)
         print guesses
         print "This is here for testing only!", self.word
