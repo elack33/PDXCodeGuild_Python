@@ -3,7 +3,7 @@ from Mini_Capstone.py_omdb import Search
 def test_init():
     search = Search()
     assert(search.imdb_id == '?i=')  # A valid IMDb ID (e.g. tt1285016)
-    assert(search.title == '?t=')  # Movie title to search for.
+    assert(search.m_title == '?t=')  # Movie title to search for.
     assert(search.s_type== '&type=movie')  # movie, series, episode	Type of result to return.
     assert(search.year == '&y=')  # Year of release.
     assert(search.response_type == '&r=json')
@@ -22,7 +22,7 @@ test_movie_title()
 
 def test_series_title():
     search = Search()
-    search.title('Game+of+Thrones')
+    search.title(u'Game+of+Thrones')
     assert(search.m_title == u'?t=Game+of+Thrones')
     assert(search.url == 'http://www.omdbapi.com/?t=Game+of+Thrones&y=&plot=short&tomatoes=true')
 test_series_title()
@@ -31,7 +31,7 @@ def test_imdbid():
     search = Search()
     search.imdbid('tt0079501')
     assert(search.imdb_id == '?i=tt0079501')
-    assert (search.url == 'http://www.omdbapi.com/?i=tt0079501&tomatoes=true')
+    assert(search.url == 'http://www.omdbapi.com/?i=tt0079501&tomatoes=true')
 test_imdbid()
 
 def test_episode():
