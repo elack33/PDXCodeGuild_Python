@@ -25,9 +25,17 @@ class Hangman(object):
         """
         word_file = "common_word_list.txt"
         with open(word_file, 'r') as word_list:
-            narrow_word_choice = [x for x in word_list if len(x) <= length and len(x) >= 3]
+
+            narrow_word_choice = []
+            for x in word_list:
+                x = x.replace("\n", "")
+                if len(x) == length:
+                    narrow_word_choice.append(x)
+
+            # narrow_word_choice = [x.replace("\n", "") for x in word_list if len(x) == length]
         self.word = random.choice(narrow_word_choice)
-        self.word = self.word[:-1].lower()
+        # print self.word
+        self.word = self.word.lower()
         if self.word == self.word.capitalize():
             self.set_random_word()
 
@@ -37,7 +45,7 @@ class Hangman(object):
         short little welcome message
         """
         welcome = "Welcome to the Hang man game!\n" \
-                  "You will have 10 chances to guess the word!\n" \
+                  "You will have 6 chances to guess the word!\n" \
                   "Each ^ is a letter to guess!\n" \
                   "Let's play!"
         return welcome
@@ -137,7 +145,7 @@ class Hangman(object):
         print "Your word is: "
         guesses = ''.join(self.word_list)
         print guesses
-        print "This is here for testing only!", self.word
+        # print "This is here for testing only!", self.word
 
     def play(self):
         while self.counter > 0:
@@ -153,7 +161,7 @@ class Hangman(object):
                 print "You win!"
 
         if self.counter == 0:
-            print "Oh no! You lost, the word was %s!" % self.word
+            print "Oh no! You lost, the word was \033[0;31m%s\033[0m!" % self.word
             self.play_again()
 
     def play_again(self):
