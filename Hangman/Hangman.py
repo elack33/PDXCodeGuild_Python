@@ -159,6 +159,7 @@ class Hangman(object):
                 print "Letters used: ", ' '.join(self.guessed_letters)
             else:
                 print "You win!"
+                break
 
         if self.counter == 0:
             print "Oh no! You lost, the word was \033[0;31m%s\033[0m!" % self.word

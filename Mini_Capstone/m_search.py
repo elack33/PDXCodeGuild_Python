@@ -1,6 +1,6 @@
 # UI for py_omdb wrapper
-from Mini_Capstone.py_omdb import Search
-from Mini_Capstone.movie_spelling_dictionary import CheckSpelling
+from py_omdb import Search
+from movie_spelling_dictionary import CheckSpelling
 import sys
 import time
 
